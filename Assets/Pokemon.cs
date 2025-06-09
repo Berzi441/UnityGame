@@ -4,11 +4,11 @@ using UnityEngine;
 
 public enum Propertyset
 {
-    Metal = 0,  // ½ğ
-    Wood = 1,   // Ä¾
-    Earth = 2,  // ÍÁ
-    Water = 3,  // Ë®
-    Fire = 4    // »ğ
+    Metal = 0,  // é‡‘
+    Wood = 1,   // æœ¨
+    Earth = 2,  // åœŸ
+    Water = 3,  // æ°´
+    Fire = 4    // ç«
 }
 public class Pokemon : MonoBehaviour
 {
@@ -37,24 +37,24 @@ public class Pokemon : MonoBehaviour
         int attackerPropValue = (int)atk_property;
         int defenderPropValue = (int)def_property;
 
-        // ¼ÆËãÊôĞÔÏà¿Ë¹ØÏµ
-        // Ïà¿Ë¹æÔò: Metal(0) > Wood(1) > Earth(2) > Water(3) > Fire(4) > Metal(0)
+        // è®¡ç®—å±æ€§ç›¸å…‹å…³ç³»
+        // ç›¸å…‹è§„åˆ™: Metal(0) > Wood(1) > Earth(2) > Water(3) > Fire(4) > Metal(0)
         bool isResisted = (attackerPropValue == (defenderPropValue + 1) % 5);
         bool isEffective = (defenderPropValue == (attackerPropValue + 1) % 5);
 
         int dmg = 0;
-        // ¼ÆËãÊôĞÔÏà¿Ë¹ØÏµ (Ê¹ÓÃÈ¡Ä£ÔËËãĞÎ³ÉÑ­»·Ïà¿Ë)
+        // è®¡ç®—å±æ€§ç›¸å…‹å…³ç³» (ä½¿ç”¨å–æ¨¡è¿ç®—å½¢æˆå¾ªç¯ç›¸å…‹)
         if (isEffective)
         {
-            dmg = 2 * atk - def; // ¹¥»÷ÊôĞÔ¿ËÖÆ·ÀÓùÊôĞÔ£¬Ë«±¶ÉËº¦
+            dmg = 2 * atk - def; // æ”»å‡»å±æ€§å…‹åˆ¶é˜²å¾¡å±æ€§ï¼ŒåŒå€ä¼¤å®³
         }
         else if (isResisted)
         {
-            dmg = Mathf.Max(1, atk / 2 - def); // ¹¥»÷ÊôĞÔ±»¿ËÖÆ£¬¼õ°ëÉËº¦(ÖÁÉÙ1µã)
+            dmg = Mathf.Max(1, atk / 2 - def); // æ”»å‡»å±æ€§è¢«å…‹åˆ¶ï¼Œå‡åŠä¼¤å®³(è‡³å°‘1ç‚¹)
         }
         else
         {
-            dmg = atk - def; // ÎŞÊôĞÔÏà¿Ë
+            dmg = atk - def; // æ— å±æ€§ç›¸å…‹
         }
 
         if (dmg < 0)

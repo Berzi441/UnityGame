@@ -43,7 +43,7 @@ public class BattleSystem : MonoBehaviour
         GameObject player = Instantiate(PlayerPrefab,playerBatteleStation);
         playerPokemon = player.GetComponent<Pokemon>();
 
-        dialogText.text = "Ò°ÉúµÄ" +  enemyPokemon.pokemonName + "Ìø³öÀ´ÁË";
+        dialogText.text = "é‡ç”Ÿçš„" +  enemyPokemon.pokemonName + "è·³å‡ºæ¥äº†";
 
         playerHUD.SetHUD(playerPokemon);
         enemyHUD.SetHUD(enemyPokemon);
@@ -63,7 +63,7 @@ public class BattleSystem : MonoBehaviour
 
     private void PlayerTurn()
     {
-        dialogText.text = playerPokemon.pokemonName + "×öÊ²Ã´";
+        dialogText.text = playerPokemon.pokemonName + "åšä»€ä¹ˆ";
     }
 
     public void OnAttackButton()
@@ -75,10 +75,10 @@ public class BattleSystem : MonoBehaviour
 
     private IEnumerator PlayerAttack()
     {
-        dialogText.text = playerPokemon.pokemonName + "Ê¹ÓÃÁË¹¥»÷£¡";
+        dialogText.text = playerPokemon.pokemonName + "ä½¿ç”¨äº†æ”»å‡»ï¼";
         yield return new WaitForSeconds(3f);
         int dmg = enemyPokemon.TakeDamage(playerPokemon.atk, enemyPokemon.def,playerPokemon.property,enemyPokemon.property);
-        dialogText.text = enemyPokemon.pokemonName + "ÊÜµ½ÁË" + dmg + "µãÉËº¦";
+        dialogText.text = enemyPokemon.pokemonName + "å—åˆ°äº†" + dmg + "ç‚¹ä¼¤å®³";
         bool isDefeated = enemyPokemon.isDefeated(dmg);
         enemyHUD.SetHP(enemyPokemon.currentHP);
         yield return new WaitForSeconds(3f);
@@ -98,20 +98,20 @@ public class BattleSystem : MonoBehaviour
     {
         if (state == BattleState.Win)
         {
-            dialogText.text = playerPokemon.pokemonName + "Ó®µÃÁËÕ½¶·£¡";
+            dialogText.text = playerPokemon.pokemonName + "èµ¢å¾—äº†æˆ˜æ–—ï¼";
         }
         else
         {
-            dialogText.text = playerPokemon.pokemonName + "±»»÷°ÜÁË£¡";
+            dialogText.text = playerPokemon.pokemonName + "è¢«å‡»è´¥äº†ï¼";
         }
     }
 
     private IEnumerator EnemyTurn()
     {
-        dialogText.text = enemyPokemon.pokemonName + "Ê¹ÓÃÁË¹¥»÷£¡";
+        dialogText.text = enemyPokemon.pokemonName + "ä½¿ç”¨äº†æ”»å‡»ï¼";
         yield return new WaitForSeconds(2f);
         int dmg = playerPokemon.TakeDamage(enemyPokemon.atk, playerPokemon.def, enemyPokemon.property, playerPokemon.property);
-        dialogText.text = playerPokemon.pokemonName + "ÊÜµ½ÁË" + dmg + "µãÉËº¦";
+        dialogText.text = playerPokemon.pokemonName + "å—åˆ°äº†" + dmg + "ç‚¹ä¼¤å®³";
         bool isDefeated = playerPokemon.isDefeated(dmg);
         playerHUD.SetHP(playerPokemon.currentHP);
         yield return new WaitForSeconds(2f);
@@ -138,9 +138,9 @@ public class BattleSystem : MonoBehaviour
     {
         playerPokemon.Heal(playerPokemon.pokemonLevel);
         playerHUD.SetHP(playerPokemon.currentHP);
-        dialogText.text = playerPokemon.pokemonName + "Ê¹ÓÃÁËÖÎÁÆ£¡";
+        dialogText.text = playerPokemon.pokemonName + "ä½¿ç”¨äº†æ²»ç–—ï¼";
         yield return new WaitForSeconds(1f);
-        dialogText.text = playerPokemon.pokemonName + "µÄÌåÁ¦»Ö¸´ÁË£¡";
+        dialogText.text = playerPokemon.pokemonName + "çš„ä½“åŠ›æ¢å¤äº†ï¼";
         yield return new WaitForSeconds(2f);
         state = BattleState.EnemyTurn;
         StartCoroutine(EnemyTurn());
