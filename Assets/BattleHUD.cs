@@ -8,21 +8,32 @@ using TMPro;
 public class BattleHUD : MonoBehaviour
 {
 
-	public TextMeshProUGUI nameText;
-	public TextMeshProUGUI lvText;
-	public Slider hpSlider;
+    public TextMeshProUGUI nameText;
+    public TextMeshProUGUI lvText;
+    public Slider HPSlider;
+    public Slider sliderBuffer;
 
-	public void SetHUD(Pokemon pm)
-	{
-		nameText.text = pm.pokemonName;
-		lvText.text =  pm.pokemonLevel.ToString();
-		hpSlider.maxValue = pm.maxHP;
-		hpSlider.value = pm.currentHP;
-	}
+    private void Update()
+    {
+        sliderBuffer.value = Mathf.MoveTowards(sliderBuffer.value, HPSlider.value, 0.02f);
+        //if (sliderBuffer.value > HPSlider.value)
+        //	sliderBuffer.value -= 0.02f;
+        //else if (sliderBuffer.value < HPSlider.value)
+        //	sliderBuffer.value += 0.02f;
+    }
+    public void SetHUD(Pokemon pm)
+    {
+        nameText.text = pm.pokemonName;
+        lvText.text = pm.pokemonLevel.ToString();
+        HPSlider.maxValue = pm.maxHP;
+        HPSlider.value = pm.currentHP;
+        sliderBuffer.maxValue = pm.maxHP;
+        sliderBuffer.value = pm.currentHP;
+    }
 
-	public void SetHP(int hp)
-	{
-		hpSlider.value = hp;
-	}
+    public void SetHP(int hp)
+    {
+        HPSlider.value = hp;
+    }
 
 }
