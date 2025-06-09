@@ -2,20 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+
 
 public class BattleHUD : MonoBehaviour
 {
 
-	public Text nameText;
-	public Text levelText;
+	public TextMeshProUGUI nameText;
+	public TextMeshProUGUI lvText;
 	public Slider hpSlider;
 
-	public void SetHUD(Unit unit)
+	public void SetHUD(Pokemon pm)
 	{
-		nameText.text = unit.unitName;
-		levelText.text = "Lvl " + unit.unitLevel;
-		hpSlider.maxValue = unit.maxHP;
-		hpSlider.value = unit.currentHP;
+		nameText.text = pm.pokemonName;
+		lvText.text = "Lv" + pm.pokemonLevel;
+		hpSlider.maxValue = pm.maxHP;
+		hpSlider.value = pm.currentHP;
 	}
 
 	public void SetHP(int hp)
