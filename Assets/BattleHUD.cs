@@ -15,7 +15,7 @@ public class BattleHUD : MonoBehaviour
 	public void SetHUD(Pokemon pm)
 	{
 		nameText.text = pm.pokemonName;
-		lvText.text = "Lv" + pm.pokemonLevel;
+		lvText.text =  pm.pokemonLevel.ToString();
 		hpSlider.maxValue = pm.maxHP;
 		hpSlider.value = pm.currentHP;
 	}
