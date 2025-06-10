@@ -564,11 +564,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  PlayerPrefab: {fileID: 8033778715328092762, guid: 8bb2a400592fbbf4f8be72f55cf7a5b7, type: 3}
-  enemyPrefab: {fileID: 8495569327355610358, guid: f150ece4677c30b42994a95a83632ff8, type: 3}
+  PlayerPrefab: {fileID: 5688909967238837933, guid: a717043515223914c85a0c39d7fa7d92, type: 3}
+  enemyPrefab: {fileID: 989664802613100438, guid: e37cbbf90f789c745930c7bf34566d5d, type: 3}
   playerBatteleStation: {fileID: 1408280688}
   emenyBattleStation: {fileID: 1886441115}
   dialogText: {fileID: 1936603208}
+  attackButton: {fileID: 361196283}
+  healButton: {fileID: 534114833}
   playerHUD: {fileID: 2088609564}
   enemyHUD: {fileID: 1562770743}
 --- !u!4 &243005537
