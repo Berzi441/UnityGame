@@ -64,6 +64,7 @@ public class BattleSystem : MonoBehaviour
         }
     }
     private bool isActionInProgress = false;
+    private bool isPrinting = false;
     private IEnumerator PlayerTurn()
     {
         //dialogText.text = playerPokemon.pokemonName + "做什么";
@@ -72,7 +73,7 @@ public class BattleSystem : MonoBehaviour
 
     public void OnAttackButton()
     {
-        if (state != BattleState.PlayerTurn || isActionInProgress) 
+        if (state != BattleState.PlayerTurn || isActionInProgress || isPrinting) 
             return;
         isActionInProgress = true;
         attackButton.interactable = false;
@@ -138,7 +139,7 @@ public class BattleSystem : MonoBehaviour
 
     public void OnHealButton()
     {
-        if (state != BattleState.PlayerTurn || isActionInProgress)
+        if (state != BattleState.PlayerTurn || isActionInProgress || isPrinting)
             return;
         isActionInProgress = true;
         healButton.interactable = false;
@@ -160,6 +161,7 @@ public class BattleSystem : MonoBehaviour
     }
     private IEnumerator TypeDialog(string dialog)
     {
+        isPrinting = true;
         dialogText.text = "";
 
         foreach (var item in dialog)
@@ -167,6 +169,8 @@ public class BattleSystem : MonoBehaviour
             dialogText.text += item;
             yield return new WaitForSeconds(1f / 30);
         }
+        isPrinting = false;
         yield return new WaitForSeconds(1f);
+        
     }
 }
