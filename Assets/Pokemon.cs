@@ -4,9 +4,9 @@ using UnityEngine;
 
 public enum Propertyset
 {
-    Metal = 0,  // 金
+    Lightning = 0,  // 电
     Wood = 1,   // 木
-    Earth = 2,  // 土
+    Ice = 2,  // 冰
     Water = 3,  // 水
     Fire = 4    // 火
 }
@@ -20,10 +20,11 @@ public class Pokemon : MonoBehaviour
     public int maxHP;
     public int currentHP;
     public Propertyset property;
+    private Animator animator;
     // Start is called before the first frame update
     void Start()
     {
-        
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -38,7 +39,7 @@ public class Pokemon : MonoBehaviour
         int defenderPropValue = (int)def_property;
 
         // 计算属性相克关系
-        // 相克规则: Metal(0) > Wood(1) > Earth(2) > Water(3) > Fire(4) > Metal(0)
+        // 相克规则: Lightning(0) > Wood(1) > Ice(2) > Water(3) > Fire(4) > Lightning(0)
         bool isResisted = (attackerPropValue == (defenderPropValue + 1) % 5);
         bool isEffective = (defenderPropValue == (attackerPropValue + 1) % 5);
 
@@ -77,5 +78,21 @@ public class Pokemon : MonoBehaviour
             return true;
         else
             return false;
+    }
+
+    public void PlayAttackAnimation()
+    {
+        if (animator != null)
+        {
+            animator.SetTrigger("Attack");
+        }
+    }
+
+    public void PlayIdleAnimation()
+    {
+        if (animator != null)
+        {
+            animator.SetBool("isAttacking", false);
+        }
     }
 }

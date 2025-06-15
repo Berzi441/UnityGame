@@ -64,6 +64,7 @@ public class BattleSystem : MonoBehaviour
         }
     }
     private bool isActionInProgress = false;
+    private bool isPrinting = false;
     private IEnumerator PlayerTurn()
     {
         //dialogText.text = playerPokemon.pokemonName + "做什么";
@@ -72,7 +73,7 @@ public class BattleSystem : MonoBehaviour
 
     public void OnAttackButton()
     {
-        if (state != BattleState.PlayerTurn || isActionInProgress) 
+        if (state != BattleState.PlayerTurn || isActionInProgress || isPrinting) 
             return;
         isActionInProgress = true;
         attackButton.interactable = false;
@@ -80,11 +81,18 @@ public class BattleSystem : MonoBehaviour
     }
     private IEnumerator PlayerAttack()
     {
+        // 播放攻击动画
+        playerPokemon.PlayAttackAnimation();
+
         //dialogText.text = playerPokemon.pokemonName + "使用了攻击！";
         yield return StartCoroutine(TypeDialog(playerPokemon.pokemonName + "使用了攻击！"));
         int dmg = enemyPokemon.TakeDamage(playerPokemon.atk, enemyPokemon.def, playerPokemon.property, enemyPokemon.property);
         //dialogText.text = enemyPokemon.pokemonName + "受到了" + dmg + "点伤害";
         yield return StartCoroutine(TypeDialog(enemyPokemon.pokemonName + "受到了" + dmg + "点伤害"));
+
+        // 返回待机状态
+        playerPokemon.PlayIdleAnimation();
+
         bool isDefeated = enemyPokemon.isDefeated(dmg);
         enemyHUD.SetHP(enemyPokemon.currentHP);
         if (isDefeated)
@@ -117,11 +125,18 @@ public class BattleSystem : MonoBehaviour
 
     private IEnumerator EnemyTurn()
     {
+        // 播放敌人攻击动画
+        enemyPokemon.PlayAttackAnimation();
+
         //dialogText.text = enemyPokemon.pokemonName + "使用了攻击！";
         yield return StartCoroutine(TypeDialog(enemyPokemon.pokemonName + "使用了攻击！"));
         int dmg = playerPokemon.TakeDamage(enemyPokemon.atk, playerPokemon.def, enemyPokemon.property, playerPokemon.property);
         //dialogText.text = playerPokemon.pokemonName + "受到了" + dmg + "点伤害";
         yield return StartCoroutine(TypeDialog(playerPokemon.pokemonName + "受到了" + dmg + "点伤害"));
+
+        // 返回待机状态
+        enemyPokemon.PlayIdleAnimation();
+
         bool isDefeated = playerPokemon.isDefeated(dmg);
         playerHUD.SetHP(playerPokemon.currentHP);
         if (isDefeated)
@@ -138,7 +153,7 @@ public class BattleSystem : MonoBehaviour
 
     public void OnHealButton()
     {
-        if (state != BattleState.PlayerTurn || isActionInProgress)
+        if (state != BattleState.PlayerTurn || isActionInProgress || isPrinting)
             return;
         isActionInProgress = true;
         healButton.interactable = false;
@@ -160,6 +175,7 @@ public class BattleSystem : MonoBehaviour
     }
     private IEnumerator TypeDialog(string dialog)
     {
+        isPrinting = true;
         dialogText.text = "";
 
         foreach (var item in dialog)
@@ -167,6 +183,8 @@ public class BattleSystem : MonoBehaviour
             dialogText.text += item;
             yield return new WaitForSeconds(1f / 30);
         }
+        isPrinting = false;
         yield return new WaitForSeconds(1f);
+        
     }
 }
